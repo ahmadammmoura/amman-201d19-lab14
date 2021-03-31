@@ -1,17 +1,32 @@
 'use strict';
 
+const items = document.getElementById('items')
+
 // Cart constructor.
 const Cart = function(items) {
   // this.items is an array of CartItem instances.
   this.items = items;
+  
 };
 
 Cart.prototype.addItem = function(product, quantity) {
   // TODO: Fill in this instance method to create a new CartItem and add it to this.items
+  let newCart = new CartItem(product,quantity);
+
+  this.items.push(newCart);
+
 };
 
 Cart.prototype.saveToLocalStorage = function() {
   // TODO: Fill in this instance method to save the contents of the cart to localStorage
+  let myStorage = window.localStorage;
+
+
+  for(let i = 0 ; i < this.items.length;i++){
+    myStorage.setItem(this.items[i].product,this.items[i].quantity);
+  }
+
+
 };
 
 Cart.prototype.removeItem = function(item) {
@@ -31,6 +46,8 @@ const Product = function(filePath, name) {
   Product.allProducts.push(this);
 };
 Product.allProducts = [];
+
+
 
 function generateCatalog() {
   new Product('assets/bag.jpg', 'Bag');
@@ -53,6 +70,9 @@ function generateCatalog() {
   new Product('assets/usb.gif', 'USB');
   new Product('assets/water-can.jpg', 'Water Can');
   new Product('assets/wine-glass.jpg', 'Wine Glass');
+
+
+
 }
 
 // Initialize the app by creating the big list of products with images and names
